@@ -2,10 +2,7 @@ package com.example;
 
 
 import com.example.models.responses.UserGetCreateResponseModel;
-import com.example.pages.HomePage;
-import com.example.pages.LoginPage;
-import com.example.pages.RecoverPasswordPage;
-import com.example.pages.RegisterPage;
+import com.example.pages.*;
 import com.example.steps.UserSteps;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Step;
@@ -93,6 +90,9 @@ public class UserTest {
     @MethodSource("buttonDataProvider")
     @Step("Проверка перехода на страницу авторизации с {0} по кнопке {1}")
     public void testNavigationToLogin(String url, String buttonName) {
+        Response response = userApi.createUser(email, password, name);
+        assertEquals(200, response.statusCode());
+
         driver.get(BASE_URL);
 
         HomePage homePage = new HomePage(driver);
@@ -100,9 +100,7 @@ public class UserTest {
         RegisterPage registerPage = new RegisterPage(driver);
         RecoverPasswordPage recoverPasswordPage = new RecoverPasswordPage(driver);
 
-        userSteps.navigateRegisterPage(homePage, loginPage);
-        userSteps.registerUser(registerPage, loginPage, homePage, email, password, name);
-
+        // Какая кнопка в параметрах, такой тест и выполняется
         By buttonLocator = null;
         switch (buttonName) {
             case "personalAccountButton":
@@ -132,5 +130,27 @@ public class UserTest {
                 "Не удалось перейти на страницу авторизации");
 
         userSteps.loginUser(homePage, loginPage, email, password);
+    }
+
+    @Test
+    public void testGoToPersonalAccount() {
+        Response response = userApi.createUser(email, password, name);
+        assertEquals(200, response.statusCode());
+
+        driver.get(BASE_URL);
+
+        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = new LoginPage(driver);
+        RegisterPage registerPage = new RegisterPage(driver);
+        AccountProfilePage accountProfilePage = new AccountProfilePage(driver);
+
+        // Логин
+        userSteps.navigateLoginPage(homePage);
+        userSteps.loginUser(homePage, loginPage, email, password);
+
+        // Переход в ЛК
+        registerPage.clickPersonalAccount();
+
+        userSteps.validationCreditionals(accountProfilePage, name, email, "*****");
     }
 }

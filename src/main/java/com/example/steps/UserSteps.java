@@ -1,5 +1,6 @@
 package com.example.steps;
 
+import com.example.pages.AccountProfilePage;
 import com.example.pages.HomePage;
 import com.example.pages.LoginPage;
 import com.example.pages.RegisterPage;
@@ -63,5 +64,14 @@ public class UserSteps {
         loginPage.clickLoginButton();
 
         assertTrue(homePage.hasCreateOrderButton(), "Ошибка входа");
+    }
+
+    @Step("Валидация данных учетной записи")
+    public void validationCreditionals(AccountProfilePage accountProfilePage,
+                                       String name, String email, String password) {
+        accountProfilePage.hasProfileLink();
+        assertEquals(name, accountProfilePage.getNameValue());
+        assertEquals(email, accountProfilePage.getEmailValue());
+        assertEquals(password, accountProfilePage.getPasswordValue());
     }
 }

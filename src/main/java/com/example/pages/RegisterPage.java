@@ -9,8 +9,7 @@ import org.openqa.selenium.WebElement;
 import static com.example.utils.Constants.BASE_WAIT;
 import static com.example.utils.Waiters.waitForVisibilityOfElementLocated;
 
-public class RegisterPage {
-    private final WebDriver driver;
+public class RegisterPage extends BasePage {
 
     private final By nameField = By.xpath(".//label[text()='Имя']//following-sibling::input");
     private final By emailField = By.xpath(".//label[text()='Email']//following-sibling::input");
@@ -20,7 +19,7 @@ public class RegisterPage {
     private final By loginLink = By.xpath(".//a[text()='Войти']");
 
     public RegisterPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void setNameField(String name) {
