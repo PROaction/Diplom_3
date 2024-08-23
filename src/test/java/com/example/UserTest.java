@@ -153,4 +153,22 @@ public class UserTest {
 
         userSteps.validationCreditionals(accountProfilePage, name, email, "*****");
     }
+
+    @Test
+    public void testFromPersonalAccountToConstructor() {
+        Response response = userApi.createUser(email, password, name);
+        assertEquals(200, response.statusCode());
+
+        driver.get(BASE_URL);
+
+        HomePage homePage = new HomePage(driver);
+        AccountProfilePage accountProfilePage = new AccountProfilePage(driver);
+
+        userSteps.navigateLoginPage(homePage);
+        userSteps.loginUser(homePage, new LoginPage(driver), email, password);
+        accountProfilePage.clickPersonalAccount();
+        accountProfilePage.hasProfileLink();
+        accountProfilePage.clickConstructorLink();
+        assertEquals(BASE_URL + "/", driver.getCurrentUrl());
+    }
 }

@@ -31,8 +31,6 @@ public class HomePage extends BasePage {
         return loginAccountButton;
     }
 
-
-
     public void clickCreateOrderButton() {
         driver.findElement(createOrderButton).click();
     }

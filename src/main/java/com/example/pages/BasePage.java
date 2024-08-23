@@ -9,6 +9,7 @@ public class BasePage {
 
     By homeLink = By.className("AppHeader_header__logo__2D0X2");
     private final By personalAccountButton = By.xpath(".//p[text()=\"Личный Кабинет\"]");
+    private final By constructorLink = By.xpath(".//p[text()='Конструктор']/ancestor::a");
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -24,5 +25,9 @@ public class BasePage {
 
     public By getPersonalAccountButton() {
         return personalAccountButton;
+    }
+
+    public void clickConstructorLink() {
+        driver.findElement(constructorLink).click();
     }
 }
