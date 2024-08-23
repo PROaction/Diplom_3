@@ -7,6 +7,7 @@ import com.example.pages.RegisterPage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
+import static com.example.utils.Constants.BASE_URL;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserSteps {
@@ -73,5 +74,15 @@ public class UserSteps {
         assertEquals(name, accountProfilePage.getNameValue());
         assertEquals(email, accountProfilePage.getEmailValue());
         assertEquals(password, accountProfilePage.getPasswordValue());
+    }
+
+    @Step("Выход из УЗ")
+    public void logout(AccountProfilePage accountProfilePage, LoginPage loginPage) {
+        accountProfilePage.clickPersonalAccount();
+        accountProfilePage.hasProfileLink();
+        accountProfilePage.clickExitButton();
+
+        loginPage.hasTitle();
+        assertEquals(BASE_URL + "/login", driver.getCurrentUrl());
     }
 }

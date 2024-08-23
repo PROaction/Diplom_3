@@ -15,6 +15,7 @@ public class AccountProfilePage extends BasePage {
     private final By nameField = By.xpath(".//label[text()='Имя']/following-sibling::input");
     private final By emailField = By.xpath(".//label[text()='Логин']/following-sibling::input");
     private final By passwordField = By.xpath(".//label[text()='Пароль']/following-sibling::input");
+    private final By exitButton = By.xpath(".//button[text()='Выход']");
 
 
     public AccountProfilePage(WebDriver driver) {
@@ -31,6 +32,10 @@ public class AccountProfilePage extends BasePage {
 
     public String getPasswordValue() {
         return driver.findElement(passwordField).getAttribute("value");
+    }
+
+    public void clickExitButton() {
+        driver.findElement(exitButton).click();
     }
 
     public boolean hasProfileLink() {

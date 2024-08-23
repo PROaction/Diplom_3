@@ -171,4 +171,20 @@ public class UserTest {
         accountProfilePage.clickConstructorLink();
         assertEquals(BASE_URL + "/", driver.getCurrentUrl());
     }
+
+    @Test
+    public void testLogout() {
+        Response response = userApi.createUser(email, password, name);
+        assertEquals(200, response.statusCode());
+
+        driver.get(BASE_URL);
+
+        HomePage homePage = new HomePage(driver);
+        AccountProfilePage accountProfilePage = new AccountProfilePage(driver);
+        LoginPage loginPage = new LoginPage(driver);
+
+        userSteps.navigateLoginPage(homePage);
+        userSteps.loginUser(homePage, loginPage, email, password);
+        userSteps.logout(accountProfilePage, loginPage);
+    }
 }
