@@ -16,6 +16,9 @@ public class HomePage extends BasePage {
     private final By title = By.xpath(".//h1[text()='Соберите бургер']");
     private final By loginAccountButton = By.xpath(".//button[text()='Войти в аккаунт']");
     private final By createOrderButton = By.xpath(".//button[text()='Оформить заказ']");
+    private final By bunTab = By.xpath(".//span[text()='Булки']/parent::div");
+    private final By sauceTab = By.xpath(".//span[text()='Соусы']/parent::div");
+    private final By fillingTab = By.xpath(".//span[text()='Начинки']/parent::div");
 
 
     public HomePage(WebDriver driver) {
@@ -43,6 +46,40 @@ public class HomePage extends BasePage {
         } catch (TimeoutException e) {
             return false;
         }
+    }
+
+    public void clickButTab() {
+        driver.findElement(bunTab).click();
+    }
+
+    public void clickSauceTab() {
+        driver.findElement(sauceTab).click();
+    }
+
+    public void clickFillingTab() {
+        driver.findElement(fillingTab).click();
+    }
+
+    public void clickTab(By tabLocator) {
+        driver.findElement(tabLocator).click();
+    }
+
+    public By getBunTab() {
+        return bunTab;
+    }
+
+    public By getSauceTab() {
+        return sauceTab;
+    }
+
+    public By getFillingTab() {
+        return fillingTab;
+    }
+
+    public boolean isTabActive(By tabLocator) {
+        WebElement tabElement = driver.findElement(tabLocator);
+        String classAttribute = tabElement.getAttribute("class");
+        return classAttribute.contains("tab_tab_type_current");
     }
 
     public boolean hasTitle() {
