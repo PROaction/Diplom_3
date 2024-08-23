@@ -83,6 +83,7 @@ public class UserTest {
         LoginPage loginPage = new LoginPage(driver);
         RegisterPage registerPage = new RegisterPage(driver);
 
+        userSteps.navigateRegisterPage(homePage, loginPage);
         userSteps.registerUserWithIncorrectPassword(registerPage, loginPage, homePage, email, "1234", name);
     }
 
